@@ -50,9 +50,9 @@ public class MobController : MonoBehaviour
             // Move mob towards player if visible
 
             if(Vector3.Distance(player_centroid,mob_centroid) > fightDistance){
-                moveDirection.x = direction.x * speed;
-                moveDirection.z = direction.z * speed;
-                float angle_to_rotate = Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z);
+                moveDirection.x = direction.x;
+                moveDirection.z = direction.z;
+                float angle_to_rotate = Mathf.Rad2Deg * Mathf.Atan2(direction.x, moveDirection.z);
                 controller.transform.eulerAngles = new Vector3(0.0f, angle_to_rotate, 0.0f);
                 animation_controller.SetBool("isWalking", true);
             } else {
@@ -69,8 +69,8 @@ public class MobController : MonoBehaviour
 
             Vector3 toTargetDirection = targetSpot - controller.transform.position;
             toTargetDirection.Normalize(); 
-            moveDirection.x = toTargetDirection.x * speed;
-            moveDirection.z = toTargetDirection.z * speed;
+            moveDirection.x = toTargetDirection.x;
+            moveDirection.z = toTargetDirection.z;
             animation_controller.SetBool("isWalking", true);
             float angle_to_rotate = Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z);
             controller.transform.eulerAngles = new Vector3(0.0f, angle_to_rotate, 0.0f);
@@ -81,7 +81,7 @@ public class MobController : MonoBehaviour
             animation_controller.SetBool("isWalking", false);
         }
 
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime * speed);
     }
 
     // Randomly path mob around to simulate natural movement
