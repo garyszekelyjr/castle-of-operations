@@ -16,7 +16,7 @@ public class MobController : MonoBehaviour
     private float movementTime;
     
     void Start() {
-        speed = 1.0f;
+        speed = 2.5f;
         aware_distance = 10.0f;
         gravity = .01f;
         wanderRange = 5.0f;
