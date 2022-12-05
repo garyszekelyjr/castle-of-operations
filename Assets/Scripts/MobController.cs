@@ -60,7 +60,9 @@ public class MobController : MonoBehaviour
                 moveDirection.z = 0;
                 animation_controller.SetBool("isWalking", false);
 
-                // TO DO: START COMBAT HERE
+                // Start Battle
+                player.GetComponent<Player>().StartBattle(this);
+                GameManager.Instance.UpdateGameState(GameState.InBattle);
             }
 
         } else if (Vector3.Distance(targetSpot,controller.transform.position) > 0.1f){
