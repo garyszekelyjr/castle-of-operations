@@ -169,10 +169,10 @@ public class Player : MonoBehaviour
     }
 
     IEnumerator ShowMessage (string message, float delay) {
-     popupText.text = message;
-     popupText.enabled = true;
-     yield return new WaitForSeconds(delay);
-     popupText.enabled = false;
+        popupText.text = message;
+        popupText.enabled = true;
+        yield return new WaitForSeconds(delay);
+        popupText.enabled = false;
     }
 
     Vector3 warpPosition = Vector3.zero;
