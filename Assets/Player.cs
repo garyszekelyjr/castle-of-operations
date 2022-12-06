@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
         if (inBattle) {
             Vector3 mob_centroid = enemy.GetComponent<CharacterController>().bounds.center;
             Vector3 player_centroid = controller.bounds.center;
@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
     private void Die(){
         WarpToPosition(SpawnPoint.transform.position);
         StartCoroutine(ShowMessage("Try Again!", 2.0f));
+        hp = 100;
     }
 
     IEnumerator ShowMessage (string message, float delay) {
@@ -185,7 +186,9 @@ public class Player : MonoBehaviour
     {
         if (warpPosition != Vector3.zero)
         {
+            controller.enabled = false;
             transform.position = warpPosition;
+            controller.enabled = true;
             warpPosition = Vector3.zero;
             GameManager.Instance.UpdateGameState(GameState.NotInBattle);
         }
