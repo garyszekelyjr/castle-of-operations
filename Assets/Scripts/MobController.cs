@@ -17,6 +17,7 @@ public class MobController : MonoBehaviour
     
     private bool isBattle;
 
+    public int hp;
     public int mob_id;
 
     void Awake(){
@@ -41,6 +42,7 @@ public class MobController : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
+        hp = 100;
         StartCoroutine("RandomMove");
     }
 
@@ -51,7 +53,7 @@ public class MobController : MonoBehaviour
             moveDirection.y = 0;
         }
 
-        if(!isBattle){
+        if(!isBattle && hp > 0){
             // Find direction to player
             GameObject player = GameObject.Find("Player");
             Vector3 player_centroid = player.GetComponent<CharacterController>().bounds.center;
@@ -116,9 +118,14 @@ public class MobController : MonoBehaviour
 
     public void GetHit(){
         animation_controller.SetTrigger("getHit");
+        hp -= (int)Mathf.Floor(UnityEngine.Random.Range(25.0f, 40.0f));;
     }
 
     public void Attack(){
         animation_controller.SetTrigger("attack");
+    }
+
+    public void Die(){
+        animation_controller.SetTrigger("die");
     }
 }

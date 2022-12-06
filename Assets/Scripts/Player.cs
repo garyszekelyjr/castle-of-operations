@@ -35,16 +35,15 @@ public class Player : MonoBehaviour
     private void GameManagerOnGameStateChanged(GameState state){
         inBattle = state == GameState.InBattle;
         animation_controller.SetBool("inBattle", inBattle);
+        BattleUI.SetActive(inBattle);
         if(inBattle){
             animation_controller.SetBool("isWalking", false);
-            BattleUI.SetActive(true);
         }
     }
 
     void Start(){
         controller = GetComponent<CharacterController>();
         animation_controller = GetComponent<Animator>();
-        BattleUI.SetActive(false);
     }
 
     void Update()
@@ -133,6 +132,10 @@ public class Player : MonoBehaviour
         answered = true;
         if(int.Parse(input.text) == correctAns){
             SuccessfulAttack();
+            if(enemy.hp <= 0){
+                GameManager.Instance.UpdateGameState(GameState.NotInBattle);
+                enemy.Die();
+            }
         } else {
             UnsuccessfulAttack();
         }
