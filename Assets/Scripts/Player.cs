@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,10 +20,12 @@ public class Player : MonoBehaviour
     public GameObject BattleUI;
     public TMP_InputField input;
     public TextMeshProUGUI question;
+    public Slider enemy_hp;
     private bool inBattle;
     private MobController enemy;
     private bool answered = true;
     private int correctAns;
+    private float curVel;
 
     void Awake(){
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
@@ -35,6 +38,8 @@ public class Player : MonoBehaviour
     private void GameManagerOnGameStateChanged(GameState state){
         inBattle = state == GameState.InBattle;
         animation_controller.SetBool("inBattle", inBattle);
+        animation_controller.ResetTrigger("getHit");
+        animation_controller.ResetTrigger("attack");
         BattleUI.SetActive(inBattle);
         if(inBattle){
             animation_controller.SetBool("isWalking", false);
@@ -55,6 +60,10 @@ public class Player : MonoBehaviour
             float angle_to_rotate = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime); 
             transform.rotation = Quaternion.Euler(0f,angle,0f);
+
+            // HP Bar
+            float currentHP = Mathf.SmoothDamp(enemy_hp.value, enemy.hp, ref curVel, 50 * Time.deltaTime);
+            enemy_hp.value = currentHP;
 
             // Generate Question
             if(answered){
@@ -139,5 +148,6 @@ public class Player : MonoBehaviour
         } else {
             UnsuccessfulAttack();
         }
+        input.text = "";
     }
 }
