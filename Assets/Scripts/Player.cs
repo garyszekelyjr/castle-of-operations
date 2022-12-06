@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class Player : MonoBehaviour
     private bool answered = true;
     private int correctAns;
     private float curVel;
+    private int hp = 100;
+
+    public TextMeshProUGUI popupText;
+    public GameObject SpawnPoint;
 
     void Awake(){
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
@@ -49,6 +54,7 @@ public class Player : MonoBehaviour
     void Start(){
         controller = GetComponent<CharacterController>();
         animation_controller = GetComponent<Animator>();
+        popupText.enabled = false;
     }
 
     void Update()
@@ -96,6 +102,7 @@ public class Player : MonoBehaviour
 
     public void StartBattle(MobController newEnemy){
         enemy = newEnemy;
+        enemy.hp = 100;
     }
 
     // Successful attack
@@ -108,6 +115,7 @@ public class Player : MonoBehaviour
     public void UnsuccessfulAttack(){
         enemy.Attack();
         animation_controller.SetTrigger("getHit");
+        hp -= (int)Mathf.Floor(UnityEngine.Random.Range(10.0f, 20.0f));;
     }
 
     private string GetOperator(){
@@ -147,7 +155,38 @@ public class Player : MonoBehaviour
             }
         } else {
             UnsuccessfulAttack();
+            if(hp <= 0){
+                Die();
+            }
         }
         input.text = "";
+    }
+
+    private void Die(){
+        WarpToPosition(SpawnPoint.transform.position);
+        StartCoroutine(ShowMessage("Try Again!", 2.0f));
+    }
+
+    IEnumerator ShowMessage (string message, float delay) {
+     popupText.text = message;
+     popupText.enabled = true;
+     yield return new WaitForSeconds(delay);
+     popupText.enabled = false;
+    }
+
+    Vector3 warpPosition = Vector3.zero;
+    public void WarpToPosition(Vector3 newPosition)
+    {
+        warpPosition = newPosition;
+    }
+    
+    void LateUpdate()
+    {
+        if (warpPosition != Vector3.zero)
+        {
+            transform.position = warpPosition;
+            warpPosition = Vector3.zero;
+            GameManager.Instance.UpdateGameState(GameState.NotInBattle);
+        }
     }
 }
