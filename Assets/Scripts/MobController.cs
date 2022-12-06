@@ -111,4 +111,12 @@ public class MobController : MonoBehaviour
             yield return new WaitForSeconds(movementTime);
         }
     }
+
+    public void GetHit(){
+        animation_controller.SetTrigger("getHit");
+    }
+
+    public void Attack(){
+        animation_controller.SetTrigger("attack");
+    }
 }

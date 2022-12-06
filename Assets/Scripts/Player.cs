@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
 
     private void GameManagerOnGameStateChanged(GameState state){
         inBattle = state == GameState.InBattle;
+        animation_controller.SetBool("inBattle", inBattle);
+        if(inBattle){
+            animation_controller.SetBool("isWalking", false);
+        }
     }
 
     void Start(){
@@ -43,6 +47,14 @@ public class Player : MonoBehaviour
             float angle_to_rotate = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime); 
             transform.rotation = Quaternion.Euler(0f,angle,0f);
+
+            // Attack
+            if(Input.GetMouseButtonDown(0))
+                SuccessfulAttack();
+            // Bad Attack
+            if(Input.GetMouseButtonDown(1))
+                UnsuccessfulAttack();
+
         } else {
             float hor = Input.GetAxisRaw("Horizontal");
             float ver = Input.GetAxisRaw("Vertical");
@@ -65,5 +77,17 @@ public class Player : MonoBehaviour
 
     public void StartBattle(MobController newEnemy){
         enemy = newEnemy;
+    }
+
+    // Successfull attack
+    private void SuccessfulAttack(){
+        animation_controller.SetTrigger("attack");
+        enemy.GetHit();
+    }
+
+    // Unsuccessfull attack
+    public void UnsuccessfulAttack(){
+        enemy.Attack();
+        animation_controller.SetTrigger("getHit");
     }
 }
