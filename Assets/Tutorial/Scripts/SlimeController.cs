@@ -13,7 +13,11 @@ public class SlimeController : MonoBehaviour
     {
         if (Vector3.Distance(this.transform.position, GameObject.Find("Player").transform.position) < 2)
         {
-            Debug.Log("ATTACK");
+            Debug.Log("IN ATTACK");
+        }
+        else
+        {
+            Debug.Log("NOT IN ATTACK");
         }
     }
 }
