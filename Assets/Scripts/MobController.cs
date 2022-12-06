@@ -17,6 +17,8 @@ public class MobController : MonoBehaviour
     
     private bool isBattle;
 
+    public int mob_id;
+
     void Awake(){
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
     }

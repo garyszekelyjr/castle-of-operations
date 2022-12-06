@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6338b30c26aa4054834a40d21bea599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mob_id: 1
 --- !u!143 &2862953208688873241
 CharacterController:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -14,8 +16,13 @@ public class Player : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVel;
     
+    public GameObject BattleUI;
+    public TMP_InputField input;
+    public TextMeshProUGUI question;
     private bool inBattle;
     private MobController enemy;
+    private bool answered = true;
+    private int correctAns;
 
     void Awake(){
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
@@ -30,12 +37,14 @@ public class Player : MonoBehaviour
         animation_controller.SetBool("inBattle", inBattle);
         if(inBattle){
             animation_controller.SetBool("isWalking", false);
+            BattleUI.SetActive(true);
         }
     }
 
     void Start(){
         controller = GetComponent<CharacterController>();
         animation_controller = GetComponent<Animator>();
+        BattleUI.SetActive(false);
     }
 
     void Update()
@@ -48,12 +57,14 @@ public class Player : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime); 
             transform.rotation = Quaternion.Euler(0f,angle,0f);
 
-            // Attack
-            if(Input.GetMouseButtonDown(0))
-                SuccessfulAttack();
-            // Bad Attack
-            if(Input.GetMouseButtonDown(1))
-                UnsuccessfulAttack();
+            // Generate Question
+            if(answered){
+                answered = false;
+                correctAns = NewQuestion();
+            }
+            if(input.text != "" && Input.GetKeyUp(KeyCode.Return)){
+                Answer();
+            }
 
         } else {
             float hor = Input.GetAxisRaw("Horizontal");
@@ -79,15 +90,51 @@ public class Player : MonoBehaviour
         enemy = newEnemy;
     }
 
-    // Successfull attack
+    // Successful attack
     private void SuccessfulAttack(){
         animation_controller.SetTrigger("attack");
         enemy.GetHit();
     }
 
-    // Unsuccessfull attack
+    // Unsuccessful attack
     public void UnsuccessfulAttack(){
         enemy.Attack();
         animation_controller.SetTrigger("getHit");
+    }
+
+    private string GetOperator(){
+        int mob_id = enemy.mob_id;
+
+        switch (mob_id){
+            case 1:
+                return "+";
+            case 2:
+                return "-";
+            case 3:
+                return "/";
+            case 4: 
+                return "*";
+            default:
+                return "FALSE";
+        }
+    }
+
+    private int NewQuestion(){
+        int num1 = (int)Mathf.Floor(UnityEngine.Random.Range(0.0f, 11.0f));
+        int num2 = (int)Mathf.Floor(UnityEngine.Random.Range(0.0f, 11.0f));
+        string op = GetOperator();
+        string expression = num1 + op + num2;
+        question.text = expression;
+        ExpressionEvaluator.Evaluate(expression, out int result);
+        return result;
+    }
+
+    public void Answer(){
+        answered = true;
+        if(int.Parse(input.text) == correctAns){
+            SuccessfulAttack();
+        } else {
+            UnsuccessfulAttack();
+        }
     }
 }
