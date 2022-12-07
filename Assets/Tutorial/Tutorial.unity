@@ -192,6 +192,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d54a7223e9b4ca94fa75d1c0ee5298f9, type: 3}
+--- !u!224 &225857168 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+  m_PrefabInstance: {fileID: 528667925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &267154656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263,9 +268,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 267154657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931942f771c274dab992c318b0b40314, type: 3}
+  m_Script: {fileID: 11500000, guid: f7e58ca7f5dac4aada3091dac9480531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  turn_smooth_time: 0.1
 --- !u!1 &307081075 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
@@ -564,6 +571,107 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc07df76fa6da5646a7b3a0c6a34dd86, type: 3}
+--- !u!1001 &528667925
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1844069211}
+    m_Modifications:
+    - target: {fileID: 5818959895474241244, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_Name
+      value: BattleUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5818959895474241244, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -700
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155025963367426671, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 536f5e6d34ab2436d9dfab1e4e4dc129, type: 3}
 --- !u!1 &573214850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,7 +2310,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 225857168}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2609,11 +2718,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
