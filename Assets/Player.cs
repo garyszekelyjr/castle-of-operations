@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public TMP_InputField input;
     public TextMeshProUGUI question;
     public Slider enemy_hp;
+    public TextMeshProUGUI enemy_name_text;
+    
     public TextMeshProUGUI popupText;
     public GameObject SpawnPoint;
 
@@ -110,6 +112,23 @@ public class Player : MonoBehaviour
     {
         enemy = newEnemy;
         enemy.hp = 100;
+        switch(newEnemy.mob_id){
+            case 1:
+                enemy_name_text.text = "Slime";
+                break;
+            case 2:
+                enemy_name_text.text = "Spiked Shell";
+                break;
+            case 3:
+                enemy_name_text.text = "Beholder";
+                break;
+            case 4:
+                enemy_name_text.text = "Chest Monster";
+                break;
+            default:
+                enemy_name_text.text = "Unknown";
+                break;
+        }
     }
 
     // Successful attack
