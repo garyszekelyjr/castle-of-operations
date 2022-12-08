@@ -9,14 +9,14 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float speed = 2.0f;
-    public float turnSmoothTime = 0.1f;
-    public GameObject BattleUI;
-    public TMP_InputField input;
-    public TextMeshProUGUI question;
-    public Slider enemy_hp;
-    public TextMeshProUGUI enemy_name_text;
+    private float turnSmoothTime = 0.1f;
+    private GameObject BattleUI;
+    private TMP_InputField input;
+    private TextMeshProUGUI question;
+    private Slider enemy_hp;
+    private TextMeshProUGUI enemy_name_text;
     
-    public TextMeshProUGUI popupText;
+    private TextMeshProUGUI popupText;
     public GameObject SpawnPoint;
 
     CharacterController controller;
@@ -55,10 +55,17 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         main_camera = GameObject.Find("Main Camera").transform;
+        popupText = GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>();
+        enemy_name_text = GameObject.Find("EnemyName").GetComponent<TextMeshProUGUI>();
+        question = GameObject.Find("Question").GetComponent<TextMeshProUGUI>();
+        enemy_hp = GameObject.Find("EnemyHP").GetComponent<Slider>();
+        input = GameObject.Find("Answer").GetComponent<TMP_InputField>();
+        BattleUI = GameObject.Find("BattleUI");
     }
 
     void Update()
     {
+
         if (inBattle)
         {
             animator.SetBool("isWalking", false);
