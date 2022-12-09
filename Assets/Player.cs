@@ -29,7 +29,11 @@ public class Player : MonoBehaviour
     bool answered = true;
     int correctAns;
     float curVel;
-    int hp = 100;
+    public int max_hp = 100;
+    public int hp = 100;
+    public int max_stamina = 100;
+    public int stamina = 100;
+    public int level = 1;
     Vector3 warpPosition = Vector3.zero;
 
     void Awake()
