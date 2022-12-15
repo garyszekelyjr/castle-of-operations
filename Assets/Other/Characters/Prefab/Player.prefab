@@ -3057,19 +3057,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8189980434977739222}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c949bc50bb6bb45379ee01899286c5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  turnSmoothTime: 0.1
-  BattleUI: {fileID: 0}
-  input: {fileID: 0}
-  question: {fileID: 0}
-  enemy_hp: {fileID: 0}
-  popupText: {fileID: 0}
   SpawnPoint: {fileID: 0}
+  max_hp: 100
+  hp: 100
+  max_stamina: 100
+  stamina: 100
+  level: 1
 --- !u!114 &5391864725131072491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3077,15 +3076,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8189980434977739222}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93860806655aa474f9914d0070e16dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
   turn_smooth_time: 0.1
-  battle_ui: {fileID: 0}
   in_battle: 0
+  enemy: {fileID: 0}
+  hp: 0
 --- !u!1 &8206070634150816031
 GameObject:
   m_ObjectHideFlags: 0

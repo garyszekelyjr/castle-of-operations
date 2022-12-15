@@ -8,12 +8,6 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Instantiate(player, new Vector3(0, 0, -5), Quaternion.identity);
         player.name = "Player";
-    }
-
-    void Update()
-    {
-        
     }
 }

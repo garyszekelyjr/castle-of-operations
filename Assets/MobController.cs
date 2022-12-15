@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MobController : MonoBehaviour
 {
+    public bool isTutorial = false;
+
     private float speed;
     private float aware_distance;
     private float gravity;
@@ -43,7 +45,10 @@ public class MobController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
         hp = 100;
-        StartCoroutine("RandomMove");
+
+        if(!isTutorial){
+            StartCoroutine("RandomMove");
+        }
     }
 
     void Update() {
@@ -104,7 +109,9 @@ public class MobController : MonoBehaviour
                 moveDirection.z = 0;
             }
 
-            controller.Move(moveDirection * Time.deltaTime * speed);
+            if(!isTutorial){
+                controller.Move(moveDirection * Time.deltaTime * speed);
+            }
         } else {
             animation_controller.SetBool("isWalking", false);
         }

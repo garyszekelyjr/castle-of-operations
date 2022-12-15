@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public bool isTutorial = false;
+
     public float speed = 2.0f;
     private float turnSmoothTime = 0.1f;
     private GameObject BattleUI;
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour
         enemy_hp = GameObject.Find("EnemyHP").GetComponent<Slider>();
         input = GameObject.Find("Answer").GetComponent<TMP_InputField>();
         BattleUI = GameObject.Find("BattleUI");
+        BattleUI.SetActive(false);
     }
 
     void Update()
@@ -154,7 +157,9 @@ public class Player : MonoBehaviour
     {
         enemy.Attack();
         animator.SetTrigger("getHit");
-        hp -= (int)Mathf.Floor(UnityEngine.Random.Range(10.0f, 20.0f)); ;
+        if(!isTutorial){
+            hp -= (int)Mathf.Floor(UnityEngine.Random.Range(10.0f, 20.0f));
+        }
     }
 
     string GetOperator()
