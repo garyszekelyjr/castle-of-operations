@@ -6,8 +6,6 @@ Slime and shell models and animations found here: https://assetstore.unity.com/p
 Chest and beholder models and animations found here: https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-partners-pbr-polyart-168251
 Font is called "OldLondon"
 
-
-
 Work Distribution:
 
 Uday Patel implemented:
