@@ -1,68 +1,61 @@
 # Castle of Operations
 
-
 ## Members
-- Uday Patel
-- Gary Szekely
-- Navya Ravavarapu
+    - Uday Patel
+    - Gary Szekely
+    - Navya Ravavarapu
 
 
 ## Scenes
+    ### Start
 
-### Start
+    ### Tutorial
 
-### Tutorial
+    ### Addition Hallway
 
-### Addition Hallway
+    ### Addition Arena
 
-### Addition Arena
+    ### Subtraction Hallway
 
-### Subtraction Hallway
+    ### Subtraction Arena
 
-### Subtraction Arena
+    ### Multiplication Hallway
 
-### Multiplication Hallway
+    ### Multiplication Arena
 
-### Multiplication Arena
+    ### Division Hallway
 
-### Division Hallway
-
-### Division Arena
-
+    ### Division Arena
 
 ## Characters
 
-
 ## Game Objects
-
 
 ## Scripts
 
-
 ## Work Distribution
-- Uday Patel
-    - Enemy animation controllers/random movement/pathing towards player
-    - Combat system
-    - Player camera/movement controls/animation controller
-    - Player.cs
-    - GameManager.cs
-    - HUDController.cs
-    - MobController.cs
-    - PauseMenu.cs
+    ### Uday Patel
+        - Enemy animation controllers/random movement/pathing towards player
+        - Combat system
+        - Player camera/movement controls/animation controller
+        - Player.cs
+        - GameManager.cs
+        - HUDController.cs
+        - MobController.cs
+        - PauseMenu.cs
 
-- Gary Szekely
+    ### Gary Szekely
 
-- Navya Ravavarapu
-
+    ### Navya Ravavarapu
 
 ## External
-Hero Model/Animtations: 
-https://assetstore.unity.com/packages/3d/characters/humanoids/rpg-tiny-hero-duo-pbr-polyart-225148
+    Hero Model/Animtations: 
+    https://assetstore.unity.com/packages/3d/characters/humanoids/rpg-tiny-hero-duo-pbr-polyart-225148
 
-Slime and Shell Model/Animations:
-https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-duo-pbr-polyart-157762
+    Slime and Shell Model/Animations:
+    https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-duo-pbr-polyart-157762
 
-Chest and Beholder Model/Animations:
-https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-partners-pbr-polyart-168251
+    Chest and Beholder Model/Animations:
+    https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-partners-pbr-polyart-168251
 
-Font: OldLondon
+    Font: OldLondon
