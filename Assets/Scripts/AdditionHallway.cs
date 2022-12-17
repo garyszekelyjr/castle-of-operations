@@ -40,25 +40,25 @@ public class AdditionHallway : MonoBehaviour
         while (walls.Count > 0)
         {
             int[] wall = walls[Random.Range(0, walls.Count - 1)];
-            int count = 0;
+            int num_visited = 0;
             if (wall[0] > 1 && visited.Any<int[]>(e => e[0] == wall[0] - 1 && e[1] == wall[1]))
             {
-                count += 1;
+                num_visited += 1;
             }
             if (wall[0] < 9 && visited.Any<int[]>(e => e[0] == wall[0] + 1 && e[1] == wall[1]))
             {
-                count += 1;
+                num_visited += 1;
             }
             if (wall[1] > 1 && visited.Any<int[]>(e => e[0] == wall[0] && e[1] == wall[1] - 1))
             {
-                count += 1;
+                num_visited += 1;
             }
             if (wall[1] < 9 && visited.Any<int[]>(e => e[0] == wall[0] && e[1] == wall[1] + 1))
             {
-                count += 1;
+                num_visited += 1;
             }
 
-            if (count == 1)
+            if (num_visited == 1)
             {
                 grid[wall[0], wall[1]] = new List<Tile> { };
                 visited.Add(wall);
@@ -88,7 +88,11 @@ public class AdditionHallway : MonoBehaviour
             {
                 if (grid[i, j].Contains(Tile.Wall))
                 {
-                    GameObject.Instantiate(wall, new Vector3((i - 5) * 4, 2, (j - 5) * 4), Quaternion.identity);
+                    GameObject.Instantiate(wall, new Vector3((i - 5) * 4, 2, (j - 5) * 4), Quaternion.identity).transform.SetParent(this.transform);
+                }
+                else
+                {
+                    
                 }
             }
         }
