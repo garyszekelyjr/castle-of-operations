@@ -7,10 +7,12 @@ public enum Tile { Wall, Slime };
 
 public class AdditionHallway : MonoBehaviour
 {
-    int x = 20;
-    int y = 20;
-    int start_x = 9;
-    int start_y = 18;
+    public GameObject wall;
+
+    int x = 21;
+    int y = 21;
+    int start_x = 1;
+    int start_y = 1;
     List<Tile>[,] grid;
 
     void Start()
@@ -20,7 +22,12 @@ public class AdditionHallway : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (i != start_x && j != start_y)
+                if (i == start_x && j == start_y)
+                {
+                    grid[i, j] = new List<Tile> { };
+
+                }
+                else
                 {
                     grid[i, j] = new List<Tile> { Tile.Wall };
                 }
@@ -28,7 +35,7 @@ public class AdditionHallway : MonoBehaviour
             }
         }
 
-        List<int[]> walls = new List<int[]> { new int[] { start_x, start_y - 1 }, new int[] { start_x - 1, start_y }, new int[] { start_x + 1, start_y } };
+        List<int[]> walls = new List<int[]> { new int[] { start_x + 1, start_y + 1 }, new int[] { start_x, start_y + 1 } };
         List<int[]> visited = new List<int[]> { new int[] { start_x, start_y } };
         while (walls.Count > 0)
         {
@@ -38,7 +45,7 @@ public class AdditionHallway : MonoBehaviour
             {
                 count += 1;
             }
-            if (wall[0] < 18 && visited.Any<int[]>(e => e[0] == wall[0] + 1 && e[1] == wall[1]))
+            if (wall[0] < 19 && visited.Any<int[]>(e => e[0] == wall[0] + 1 && e[1] == wall[1]))
             {
                 count += 1;
             }
@@ -46,12 +53,12 @@ public class AdditionHallway : MonoBehaviour
             {
                 count += 1;
             }
-            if (wall[1] < 18 && visited.Any<int[]>(e => e[0] == wall[0] && e[1] == wall[1] + 1))
+            if (wall[1] < 19 && visited.Any<int[]>(e => e[0] == wall[0] && e[1] == wall[1] + 1))
             {
                 count += 1;
             }
 
-            if (count < 2)
+            if (count == 1)
             {
                 grid[wall[0], wall[1]] = new List<Tile> { };
                 visited.Add(wall);
@@ -59,7 +66,7 @@ public class AdditionHallway : MonoBehaviour
                 {
                     walls.Add(new int[] { wall[0] - 1, wall[1] });
                 }
-                if (wall[0] < 18)
+                if (wall[0] < 19)
                 {
                     walls.Add(new int[] { wall[0] + 1, wall[1] });
                 }
@@ -67,7 +74,7 @@ public class AdditionHallway : MonoBehaviour
                 {
                     walls.Add(new int[] { wall[0], wall[1] - 1 });
                 }
-                if (wall[1] < 18)
+                if (wall[1] < 19)
                 {
                     walls.Add(new int[] { wall[0], wall[1] + 1 });
                 }
@@ -79,18 +86,10 @@ public class AdditionHallway : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (i != start_x && j != start_y)
+                if (grid[i, j].Contains(Tile.Wall))
                 {
-                    if (grid[i, j].Count > 0)
-                    {
-                        Debug.Log(grid[i, j][0]);
-                    }
-                    else
-                    {
-                        Debug.Log(grid[i, j]);
-                    }
+                    GameObject.Instantiate(wall, new Vector3((i - 10) * 2, 2, (j - 10) * 2), Quaternion.identity);
                 }
-
             }
         }
     }
