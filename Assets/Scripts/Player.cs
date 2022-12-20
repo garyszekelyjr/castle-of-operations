@@ -8,217 +8,157 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public bool isTutorial = false;
+    public GameObject mob;
 
     public float speed = 2.0f;
     private float turnSmoothTime = 0.1f;
-    private GameObject BattleUI;
-    private TMP_InputField input;
-    private TextMeshProUGUI question;
-    private Slider enemy_hp;
-    private TextMeshProUGUI enemy_name_text;
-    
-    private TextMeshProUGUI popupText;
-    public GameObject SpawnPoint;
+    GameObject battleMenu;
+    TextMeshProUGUI question;
+    TMP_InputField answer;
+    Slider mobHp;
+    TextMeshProUGUI mobName;
+    TextMeshProUGUI popupText;
+
+    float turnSmoothVel;
+    bool answered = true;
+    int correctAnswer;
+    public int max_hp = 100;
+    public int hp = 100;
 
     CharacterController controller;
     Animator animator;
     Transform main_camera;
-
-    float turnSmoothVel;
-    bool inBattle;
-    MobController enemy;
-    bool answered = true;
-    int correctAns;
-    float curVel;
-    public int max_hp = 100;
-    public int hp = 100;
-    public int max_stamina = 100;
-    public int stamina = 100;
-    public int level = 1;
-    Vector3 warpPosition = Vector3.zero;
-
-    void Awake()
-    {
-        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
-    }
-
-    void Destroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
-    }
-
-    void GameManagerOnGameStateChanged(GameState state)
-    {
-        inBattle = state == GameState.InBattle;
-        animator.ResetTrigger("getHit");
-        animator.ResetTrigger("attack");
-        BattleUI.SetActive(inBattle);
-    }
+    GameManager gameManager;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         main_camera = GameObject.Find("Main Camera").transform;
-        popupText = GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>();
-        enemy_name_text = GameObject.Find("EnemyName").GetComponent<TextMeshProUGUI>();
+
+        battleMenu = GameObject.Find("BattleMenu");
         question = GameObject.Find("Question").GetComponent<TextMeshProUGUI>();
-        enemy_hp = GameObject.Find("EnemyHP").GetComponent<Slider>();
-        input = GameObject.Find("Answer").GetComponent<TMP_InputField>();
-        BattleUI = GameObject.Find("BattleUI");
-        BattleUI.SetActive(false);
+        answer = GameObject.Find("Answer").GetComponent<TMP_InputField>();
+        mobName = GameObject.Find("MobName").GetComponent<TextMeshProUGUI>();
+        mobHp = GameObject.Find("MobHp").GetComponent<Slider>();
+        popupText = GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-
-        if (inBattle)
+        switch (gameManager.state)
         {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("inBattle", true);
+            case State.NotInBattle:
+                battleMenu.SetActive(false);
+                animator.SetBool("inBattle", false);
 
-            Vector3 mob_centroid = enemy.GetComponent<CharacterController>().bounds.center;
-            Vector3 player_centroid = controller.bounds.center;
-            Vector3 direction = mob_centroid - player_centroid;
-            float angle_to_rotate = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-            // HP Bar
-            float currentHP = Mathf.SmoothDamp(enemy_hp.value, enemy.hp, ref curVel, 50 * Time.deltaTime);
-            enemy_hp.value = currentHP;
+                if (direction.magnitude > 0)
+                {
+                    animator.SetBool("isWalking", true);
 
-            // Generate Question
-            if (answered)
-            {
-                answered = false;
-                correctAns = NewQuestion();
-            }
-            if (input.text != "" && Input.GetKeyUp(KeyCode.Return))
-            {
-                Answer();
-            }
-        }
-        else
-        {
-            animator.SetBool("inBattle", false);
+                    float angle_to_rotate = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + main_camera.eulerAngles.y;
+                    transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime), 0);
 
-            Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
-            if (direction.magnitude > 0)
-            {
-                animator.SetBool("isWalking", true);
-
-                float angle_to_rotate = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + main_camera.eulerAngles.y;
-                transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.eulerAngles.y, angle_to_rotate, ref turnSmoothVel, turnSmoothTime), 0);
-
-                controller.Move(Quaternion.Euler(0, angle_to_rotate, 0) * Vector3.forward * speed * Time.deltaTime);
-            }
-            else
-            {
+                    controller.Move(Quaternion.Euler(0, angle_to_rotate, 0) * Vector3.forward * speed * Time.deltaTime);
+                }
+                else
+                {
+                    animator.SetBool("isWalking", false);
+                }
+                break;
+            case State.InBattle:
+                battleMenu.SetActive(true);
                 animator.SetBool("isWalking", false);
-            }
+                animator.SetBool("inBattle", true);
+
+                Vector3 mob_centroid = mob.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().bounds.center;
+                Vector3 player_centroid = controller.bounds.center;
+                Vector3 _direction = (mob_centroid - player_centroid).normalized;
+                transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.eulerAngles.y, Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg, ref turnSmoothVel, turnSmoothTime), 0);
+
+                mobName.text = mob.GetComponent<Mob>().mobName;
+                mobHp.value = mob.GetComponent<Mob>().hp;
+
+                // Generate Question
+                if (answered)
+                {
+                    answered = false;
+                    correctAnswer = Question();
+                }
+                if (answer.text != "" && Input.GetKeyUp(KeyCode.Return))
+                {
+                    Answer();
+                }
+                break;
         }
     }
 
-    public void StartBattle(MobController newEnemy)
-    {
-        enemy = newEnemy;
-        enemy.hp = 100;
-        switch(newEnemy.mob_id){
-            case 1:
-                enemy_name_text.text = "Slime";
-                break;
-            case 2:
-                enemy_name_text.text = "Spiked Shell";
-                break;
-            case 3:
-                enemy_name_text.text = "Beholder";
-                break;
-            case 4:
-                enemy_name_text.text = "Chest Monster";
-                break;
-            default:
-                enemy_name_text.text = "Unknown";
-                break;
-        }
-    }
-
-    // Successful attack
-    void SuccessfulAttack()
+    public void Attack()
     {
         animator.SetTrigger("attack");
-        enemy.GetHit();
+        mob.GetComponent<Mob>().hp -= Random.Range(25, 40);
+        mob.GetComponent<Animator>().SetTrigger("getHit");
     }
 
-    // Unsuccessful attack
-    public void UnsuccessfulAttack()
+    public void Die()
     {
-        enemy.Attack();
-        animator.SetTrigger("getHit");
-        if(!isTutorial){
-            hp -= (int)Mathf.Floor(UnityEngine.Random.Range(10.0f, 20.0f));
-        }
+        StartCoroutine(ShowMessage("Try Again!", 2.0f));
+        hp = 100;
     }
 
     string GetOperator()
     {
-        int mob_id = enemy.mob_id;
-        switch (mob_id)
+        switch (mob.GetComponent<Mob>().mobName)
         {
-            case 1:
-                return "+";
-            case 2:
-                return "-";
-            case 3:
-                return "/";
-            case 4:
-                return "*";
+            case "Slime":
+                return " + ";
+            case "Turtle":
+                return " - ";
+            case "Chest":
+                return " / ";
+            case "Beholder":
+                return " * ";
             default:
-                return "FALSE";
+                return " ";
         }
     }
 
-    int NewQuestion()
+    int Question()
     {
-        int num1 = (int)Mathf.Floor(UnityEngine.Random.Range(0.0f, 11.0f));
-        int num2 = (int)Mathf.Floor(UnityEngine.Random.Range(0.0f, 11.0f));
-        string op = GetOperator();
-        string expression = num1 + op + num2;
+        string expression = Random.Range(0, 11) + GetOperator() + Random.Range(0, 11);
         question.text = expression;
-        ExpressionEvaluator.Evaluate(expression, out int result);
-        return result;
+        ExpressionEvaluator.Evaluate(expression, out int answer);
+        return answer;
     }
 
     public void Answer()
     {
         answered = true;
-        if (int.Parse(input.text) == correctAns)
+        if (int.Parse(answer.text) == correctAnswer)
         {
-            SuccessfulAttack();
-            if (enemy.hp <= 0)
+            Attack();
+            if (mob.GetComponent<Mob>().hp <= 0)
             {
-                GameManager.Instance.UpdateGameState(GameState.NotInBattle);
-                enemy.Die();
+                mob.GetComponent<Mob>().Die();
             }
         }
         else
         {
-            UnsuccessfulAttack();
+            mob.GetComponent<Mob>().Attack();
+            if (!mob.GetComponent<Mob>().isTutorial)
+            {
+                hp -= Random.Range(10, 20);
+            }
             if (hp <= 0)
             {
                 Die();
             }
         }
-        input.text = "";
-    }
-
-    void Die()
-    {
-        WarpToPosition(SpawnPoint.transform.position);
-        StartCoroutine(ShowMessage("Try Again!", 2.0f));
-        hp = 100;
+        answer.text = "";
     }
 
     IEnumerator ShowMessage(string message, float delay)
@@ -227,22 +167,5 @@ public class Player : MonoBehaviour
         popupText.enabled = true;
         yield return new WaitForSeconds(delay);
         popupText.enabled = false;
-    }
-
-    public void WarpToPosition(Vector3 newPosition)
-    {
-        warpPosition = newPosition;
-    }
-
-    void LateUpdate()
-    {
-        if (warpPosition != Vector3.zero)
-        {
-            controller.enabled = false;
-            transform.position = warpPosition;
-            controller.enabled = true;
-            warpPosition = Vector3.zero;
-            GameManager.Instance.UpdateGameState(GameState.NotInBattle);
-        }
     }
 }

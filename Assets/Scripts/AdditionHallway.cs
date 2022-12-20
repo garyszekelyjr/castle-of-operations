@@ -8,6 +8,7 @@ public enum Tile { Wall, Slime };
 public class AdditionHallway : MonoBehaviour
 {
     public GameObject wall;
+    public GameObject slime;
 
     int x = 11;
     int y = 11;
@@ -35,7 +36,7 @@ public class AdditionHallway : MonoBehaviour
             }
         }
 
-        List<int[]> walls = new List<int[]> { new int[] { start_x + 1, start_y + 1 }, new int[] { start_x, start_y + 1 } };
+        List<int[]> walls = new List<int[]> { new int[] { start_x + 1, start_y }, new int[] { start_x, start_y + 1 } };
         List<int[]> visited = new List<int[]> { new int[] { start_x, start_y } };
         while (walls.Count > 0)
         {
@@ -92,7 +93,9 @@ public class AdditionHallway : MonoBehaviour
                 }
                 else
                 {
-                    
+                    if (Random.Range(0f, 1f) < 0.1f) {
+                        GameObject.Instantiate(slime, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                    }
                 }
             }
         }

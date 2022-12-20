@@ -6,30 +6,26 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public enum Level { Start, Tutorial, AdditionHallway, AdditionArena, SubtractionHallway, SubtractionArena, MultiplicationHallway, MultiplicationArena, DivisionHallway, DivisionArena }
+public enum Level { Start, Tutorial, Hallway, Arena }
 
-public enum State { NotInBattle, InBattle, Victory }
-
-public enum GameState { NotInBattle, InBattle, Victory }
+public enum State { NotInBattle, InBattle }
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public GameState state;
-    public static event Action<GameState> OnGameStateChanged;
+    public State state;
+    public Level level;
 
-    Level level;
     string username;
 
     void Awake()
     {
         DontDestroyOnLoad(this);
-        Instance = this;
     }
 
     void Start()
     {
-        UpdateGameState(GameState.NotInBattle);
+        UpdateLevel(Level.Hallway);
+        UpdateState(State.NotInBattle);
     }
 
     void Update()
@@ -48,21 +44,9 @@ public class GameManager : MonoBehaviour
                 break;
             case Level.Tutorial:
                 break;
-            case Level.AdditionHallway:
+            case Level.Hallway:
                 break;
-            case Level.AdditionArena:
-                break;
-            case Level.SubtractionHallway:
-                break;
-            case Level.SubtractionArena:
-                break;
-            case Level.MultiplicationHallway:
-                break;
-            case Level.MultiplicationArena:
-                break;
-            case Level.DivisionHallway:
-                break;
-            case Level.DivisionArena:
+            case Level.Arena:
                 break;
         }
     }
@@ -79,12 +63,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateGameState(GameState newState)
+    public void UpdateState(State newState)
     {
-        if (Enum.IsDefined(typeof(GameState), newState))
+        if (Enum.IsDefined(typeof(State), newState))
         {
             state = newState;
-            OnGameStateChanged?.Invoke(newState);
         }
         else
         {
