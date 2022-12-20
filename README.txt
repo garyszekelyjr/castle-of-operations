@@ -43,6 +43,7 @@
         - HUDController.cs
         - Mob.cs
         - PauseMenu.cs
+        - Music
 
     ### Gary Szekely
         - Scripts
@@ -78,3 +79,7 @@
     https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-partners-pbr-polyart-168251
 
     Font: OldLondon
+
+    Music:
+    https://www.chosic.com/download-audio/24210/
+    https://www.chosic.com/download-audio/45434/
