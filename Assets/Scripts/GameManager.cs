@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateLevel(Level.Start);
-        UpdateState(State.NotInBattle);
+        state = State.NotInBattle;
     }
 
     void Update()
@@ -68,6 +68,22 @@ public class GameManager : MonoBehaviour
         if (Enum.IsDefined(typeof(State), newState))
         {
             state = newState;
+            GameObject player = GameObject.Find("Player");
+            if(player != null){
+                AudioSource audioSorce = player.GetComponent<AudioSource>();
+                switch (state) {
+                    case State.NotInBattle:
+                        audioSorce.clip = (AudioClip)Resources.Load("normal", typeof(AudioClip));
+                        break;
+                    case State.InBattle:
+                        audioSorce.clip = (AudioClip)Resources.Load("battle", typeof(AudioClip));
+                        break;
+                    default:
+                        print("Unknown State");
+                        break;
+                }
+                audioSorce.Play();
+            }
         }
         else
         {

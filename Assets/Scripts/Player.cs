@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
         popupText = GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
+        gameManager.UpdateState(State.NotInBattle);
     }
 
     void Update()
