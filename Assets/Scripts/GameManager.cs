@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateLevel(Level.Hallway);
+        UpdateLevel(Level.Start);
         UpdateState(State.NotInBattle);
     }
 
