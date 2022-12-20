@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mob : MonoBehaviour
 {
     public bool isTutorial;
+    public bool isBoss = false;
     public int hp;
     public string mobName = "Slime";
 
@@ -30,7 +31,7 @@ public class Mob : MonoBehaviour
         fightDistance = 3f;
         hp = 100;
 
-        if (!isTutorial)
+        if (!isTutorial && !isBoss)
         {
             StartCoroutine("RandomMove");
         }
@@ -46,9 +47,9 @@ public class Mob : MonoBehaviour
             Vector3 direction = (playerCentroid - mobCentroid).normalized;
 
             // Check if player is visible
-            RaycastHit hit;
-
+            //RaycastHit hit;
             //if (Physics.Raycast(mobCentroid, direction, out hit, awareDistance) && (hit.collider.gameObject == player))
+
             if(Vector3.Distance(playerCentroid, mobCentroid) < awareDistance)
             {
                 // Move mob towards player if visible
@@ -57,12 +58,16 @@ public class Mob : MonoBehaviour
                 {
                     moveDirection = new Vector3(direction.x, 0, direction.z);
                     controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(direction.x, moveDirection.z), 0);
-                    animator.SetBool("isWalking", true);
+                    if(!isBoss){
+                        animator.SetBool("isWalking", true);
+                    }
                 }
                 else
                 {
                     moveDirection = Vector3.zero;
-                    animator.SetBool("isWalking", false);
+                    if(!isBoss){
+                        animator.SetBool("isWalking", false);
+                    }
                     player.GetComponent<Player>().mob = gameObject;
                     gameManager.UpdateState(State.InBattle);
                 }
@@ -71,18 +76,22 @@ public class Mob : MonoBehaviour
             {
                 // Move to wander location if player is not visible
 
-                animator.SetBool("isWalking", true);
+                if(!isBoss){
+                    animator.SetBool("isWalking", true);
+                }
                 Vector3 toTargetDirection = (targetSpot - controller.transform.position).normalized;
                 moveDirection = new Vector3(toTargetDirection.x, 0, toTargetDirection.z);
                 controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z), 0);
             }
             else
             {
-                animator.SetBool("isWalking", false);
+                if(!isBoss){
+                    animator.SetBool("isWalking", false);
+                }
                 moveDirection = Vector3.zero;
             }
             
-            if (!isTutorial)
+            if (!isTutorial && !isBoss)
             {
                 controller.Move(new Vector3(moveDirection.x, 0, moveDirection.z) * Time.deltaTime * speed);
             }
@@ -108,5 +117,14 @@ public class Mob : MonoBehaviour
     {
         animator.SetTrigger("die");
         gameManager.UpdateState(State.NotInBattle);
+    }
+
+    public void GetHit(){
+        if(isBoss){
+            hp -= Random.Range(10, 15);
+        } else {
+            hp -= Random.Range(25, 40);
+        }
+        animator.SetTrigger("getHit");
     }
 }

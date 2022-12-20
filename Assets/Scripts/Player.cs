@@ -102,8 +102,7 @@ public class Player : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("attack");
-        mob.GetComponent<Mob>().hp -= Random.Range(25, 40);
-        mob.GetComponent<Animator>().SetTrigger("getHit");
+        mob.GetComponent<Mob>().GetHit();
     }
 
     public void Die()
