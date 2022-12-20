@@ -35,16 +35,35 @@
 
 ## Work Distribution
     ### Uday Patel
-        - Enemy animation controllers/random movement/pathing towards player
-        - Combat system
-        - Player camera/movement controls/animation controller
+        - Enemy Animator, Movement & Path Finding
+        - Combat
+        - Player Camera, Animator, & Movement
         - Player.cs
         - GameManager.cs
         - HUDController.cs
-        - MobController.cs
+        - Mob.cs
         - PauseMenu.cs
 
     ### Gary Szekely
+        - Scripts
+            - Player.cs
+            - GameManager.cs
+            - Mob.cs
+            - AdditionHallway.cs
+            - SubtractionHallway.cs
+            - MultiplicationHallway.cs
+            - DivisionHallway.cs
+            - TutorialExit.cs
+        
+        - Scenes
+            - Start
+            - Tutorial
+            - Hallways
+
+        - Other
+            - Maze generation w/ Prim's algorithm
+            - Mob spawning
+
 
     ### Navya Ravavarapu
 
