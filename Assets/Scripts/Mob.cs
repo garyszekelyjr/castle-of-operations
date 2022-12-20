@@ -38,59 +38,53 @@ public class Mob : MonoBehaviour
 
     void Update()
     {
-        if (hp >= 0)
+        if (hp >= 0 && !(gameManager.state == State.InBattle))
         {
-            switch (gameManager.state)
+            // Find direction to player
+            Vector3 playerCentroid = player.GetComponent<CharacterController>().bounds.center;
+            Vector3 mobCentroid = controller.bounds.center;
+            Vector3 direction = (playerCentroid - mobCentroid).normalized;
+
+            // Check if player is visible
+            RaycastHit hit;
+
+            //if (Physics.Raycast(mobCentroid, direction, out hit, awareDistance) && (hit.collider.gameObject == player))
+            if(Vector3.Distance(playerCentroid, mobCentroid) < awareDistance)
             {
-                case State.NotInBattle:
-                    // Find direction to player
-                    Vector3 playerCentroid = player.GetComponent<CharacterController>().bounds.center;
-                    Vector3 mobCentroid = controller.bounds.center;
-                    Vector3 direction = (playerCentroid - mobCentroid).normalized;
+                // Move mob towards player if visible
 
-                    // Check if player is visible
-                    RaycastHit hit;
+                if (Vector3.Distance(playerCentroid, mobCentroid) > fightDistance)
+                {
+                    moveDirection = new Vector3(direction.x, 0, direction.z);
+                    controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(direction.x, moveDirection.z), 0);
+                    animator.SetBool("isWalking", true);
+                }
+                else
+                {
+                    moveDirection = Vector3.zero;
+                    animator.SetBool("isWalking", false);
+                    player.GetComponent<Player>().mob = gameObject;
+                    gameManager.UpdateState(State.InBattle);
+                }
+            }
+            else if (Vector3.Distance(targetSpot, controller.transform.position) > 0.1f)
+            {
+                // Move to wander location if player is not visible
 
-                    if (Physics.Raycast(mobCentroid, direction, out hit, awareDistance) && (hit.collider.gameObject == player))
-                    {
-                        // Move mob towards player if visible
-
-                        if (Vector3.Distance(playerCentroid, mobCentroid) > fightDistance)
-                        {
-                            moveDirection = new Vector3(direction.x, 0, direction.z);
-                            controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(direction.x, moveDirection.z), 0);
-                            animator.SetBool("isWalking", true);
-                        }
-                        else
-                        {
-                            moveDirection = Vector3.zero;
-                            animator.SetBool("isWalking", false);
-                            player.GetComponent<Player>().mob = gameObject;
-                            gameManager.UpdateState(State.InBattle);
-                        }
-                    }
-                    else if (Vector3.Distance(targetSpot, controller.transform.position) > 0.1f)
-                    {
-                        // Move to wander location if player is not visible
-
-                        animator.SetBool("isWalking", true);
-                        Vector3 toTargetDirection = (targetSpot - controller.transform.position).normalized;
-                        moveDirection = new Vector3(toTargetDirection.x, 0, toTargetDirection.z);
-                        controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z), 0);
-                    }
-                    else
-                    {
-                        animator.SetBool("isWalking", false);
-                        moveDirection = Vector3.zero;
-                    }
-                    
-                    if (!isTutorial)
-                    {
-                        controller.Move(new Vector3(moveDirection.x, 0, moveDirection.z) * Time.deltaTime * speed);
-                    }
-                    break;
-                case State.InBattle:
-                    break;
+                animator.SetBool("isWalking", true);
+                Vector3 toTargetDirection = (targetSpot - controller.transform.position).normalized;
+                moveDirection = new Vector3(toTargetDirection.x, 0, toTargetDirection.z);
+                controller.transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z), 0);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+                moveDirection = Vector3.zero;
+            }
+            
+            if (!isTutorial)
+            {
+                controller.Move(new Vector3(moveDirection.x, 0, moveDirection.z) * Time.deltaTime * speed);
             }
         }
     }
@@ -108,7 +102,6 @@ public class Mob : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("attack");
-
     }
 
     public void Die()
