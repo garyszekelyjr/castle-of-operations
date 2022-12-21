@@ -163,6 +163,7 @@ public class Player : MonoBehaviour
         answered = true;
         if (int.Parse(answer.text) == correctAnswer)
         {
+            GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("sword", typeof(AudioClip)));
             Attack();
             if (mob.GetComponent<Mob>().hp <= 0)
             {
@@ -171,6 +172,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("punch", typeof(AudioClip)));
             mob.GetComponent<Mob>().Attack();
             if (!mob.GetComponent<Mob>().isTutorial)
             {
