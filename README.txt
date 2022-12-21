@@ -5,33 +5,30 @@
     - Gary Szekely
     - Navya Ravavarapu
 
-
-## Scenes
-    ### Start
-
-    ### Tutorial
-
-    ### Addition Hallway
-
-    ### Addition Arena
-
-    ### Subtraction Hallway
-
-    ### Subtraction Arena
-
-    ### Multiplication Hallway
-
-    ### Multiplication Arena
-
-    ### Division Hallway
-
-    ### Division Arena
-
-## Characters
-
-## Game Objects
-
 ## Scripts
+
+    GameManager.cs
+        Controller for the game manager, controls and gives information about the state of the game for the objects to use
+
+    Player.cs
+        Controller for the player, allows for movement, attacking, and other functionalty neseccsay for the player
+
+    Mob.cs
+        Controller for the mobs, allows for random movmement, path finding to the player, and attacking.
+
+    Hallway.cs
+        Generates each hallway and places the specfic mobs.
+
+    Exit.cs
+        Serves as the exit point for the player within each scene (except Start).
+
+    HUDController.cs
+        Controls the heads up display.
+
+    PauseMenu.cs
+        Controls the pause menu.
+
+    OpponentDeter.cs
 
 ## Work Distribution
     ### Uday Patel
@@ -53,14 +50,11 @@
 
     ### Gary Szekely
         - Scripts
-            - Player.cs
-            - GameManager.cs
-            - Mob.cs
-            - AdditionHallway.cs
-            - SubtractionHallway.cs
-            - MultiplicationHallway.cs
-            - DivisionHallway.cs
-            - TutorialExit.cs
+            - Player.cs (hot fixes for combat)
+            - GameManager.cs (Level flow and functions for buttons)
+            - Mob.cs (hot fixes for combat)
+            - Hallway.cs
+            - Exit.cs
         
         - Scenes
             - Start
@@ -70,6 +64,7 @@
         - Other
             - Maze generation w/ Prim's algorithm
             - Mob spawning
+            - One-shot audio
 
 
     ### Navya Ravavarapu

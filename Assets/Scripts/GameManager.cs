@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateLevel(Level.Hallway);
+        UpdateLevel(Level.Start);
         state = State.NotInBattle;
     }
 
@@ -40,12 +40,6 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject.Find("Start Button").GetComponent<Button>().interactable = false;
                 }
-                break;
-            case Level.Tutorial:
-                break;
-            case Level.Hallway:
-                break;
-            case Level.Arena:
                 break;
         }
     }
