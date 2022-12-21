@@ -35,15 +35,21 @@
 
 ## Work Distribution
     ### Uday Patel
-        - Enemy Animator, Movement & Path Finding
-        - Combat
-        - Player Camera, Animator, & Movement
-        - Player.cs
-        - GameManager.cs
-        - HUDController.cs
-        - Mob.cs
-        - PauseMenu.cs
-        - Music
+        - Scripts
+            - Player.cs
+            - GameManager.cs
+            - HUDController.cs
+            - Mob.cs
+            - PauseMenu.cs
+
+        - Other 
+            - Music
+            - Combat
+            - Enemy Animators, Movement, & Path Finding
+                - Chases player once in range and visible
+            - Player Camera, Animator, & Movement Controller
+            - Random Aestetics in scenes (lighting, fonts, objects)
+
 
     ### Gary Szekely
         - Scripts
