@@ -863,6 +863,7 @@ MonoBehaviour:
   isBoss: 1
   hp: 100
   mobName: Zombo, the Subtraction Operator
+  fightDistance: 4
 --- !u!143 &600167753
 CharacterController:
   m_ObjectHideFlags: 0

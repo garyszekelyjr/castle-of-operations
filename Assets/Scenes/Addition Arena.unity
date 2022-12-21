@@ -2983,6 +2983,7 @@ MonoBehaviour:
   isBoss: 1
   hp: 100
   mobName: Skeletron, the Addition Operator
+  fightDistance: 5
 --- !u!143 &1784108845
 CharacterController:
   m_ObjectHideFlags: 0

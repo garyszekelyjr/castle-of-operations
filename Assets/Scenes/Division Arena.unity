@@ -457,6 +457,7 @@ MonoBehaviour:
   isBoss: 1
   hp: 100
   mobName: SFJI342, the Division Operator
+  fightDistance: 5
 --- !u!143 &77577064
 CharacterController:
   m_ObjectHideFlags: 0

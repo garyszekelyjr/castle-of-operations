@@ -10,7 +10,7 @@ public class Mob : MonoBehaviour
     public string mobName = "Slime";
 
     float awareDistance;
-    float fightDistance;
+    public float fightDistance;
     float speed = 2.5f;
 
     GameManager gameManager;
