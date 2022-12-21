@@ -131,9 +131,15 @@ public class Player : MonoBehaviour
                 return " + ";
             case "Turtle":
                 return " - ";
+            case "Zombo, the Subtraction Operator":
+                return " * ";
             case "Chest":
                 return " / ";
+            case "SFJI342, the Division Operator":
+                return " / ";
             case "Beholder":
+                return " * ";
+            case "Guide, the Multiplication Operator":
                 return " * ";
             default:
                 return " ";
