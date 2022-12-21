@@ -48,7 +48,7 @@
             - Enemy Animators, Movement, & Path Finding
                 - Chases player once in range and visible
             - Player Camera, Animator, & Movement Controller
-            - Random Aestetics in scenes (lighting, fonts, objects)
+            - Random Aestetics in scenes (lighting, fonts, objects, materials)
 
 
     ### Gary Szekely
