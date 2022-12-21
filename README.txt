@@ -68,6 +68,20 @@
 
 
     ### Navya Ravavarapu
+        - Scripts
+            - Player.cs
+            - Mob.cs
+            - OpponentDeter.cs 
+        - Scenes
+            - Addition Arena 
+            - Subtraction Arena
+            - Multiplication Arena
+            - Division arena 
+        - Other 
+            - Combat
+            - Enemy Animators and Movement
+            - Player Camera Controller
+            - Aesthetics of Arena
 
 ## External
     Hero Model/Animtations: 
