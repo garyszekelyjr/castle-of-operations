@@ -117,6 +117,7 @@ public class Mob : MonoBehaviour
     {
         animator.SetTrigger("die");
         gameManager.UpdateState(State.NotInBattle);
+        controller.enabled = false;
     }
 
     public void GetHit(){
