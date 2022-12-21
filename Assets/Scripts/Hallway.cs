@@ -123,13 +123,13 @@ public class Hallway : MonoBehaviour
                         case "multiplication":
                             if (Random.Range(0f, 1f) < 0.1f)
                             {
-                                GameObject.Instantiate(chest, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                                GameObject.Instantiate(beholder, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
                             }
                             break;
                         case "division":
                             if (Random.Range(0f, 1f) < 0.1f)
                             {
-                                GameObject.Instantiate(beholder, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                                GameObject.Instantiate(chest, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
                             }
                             break;
                     }
