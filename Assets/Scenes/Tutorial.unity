@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276797, g: 0.21589167, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276797, g: 0.2158917, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1724,6 +1724,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7413344840680693326, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 95aa1be73b78d44349fe4784bf789947, type: 2}
     - target: {fileID: 7647134206250791342, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
       propertyPath: m_Name
       value: Guide
@@ -2111,11 +2115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051905695587510480, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.014942422
+      value: 0.014942354
       objectReference: {fileID: 0}
     - target: {fileID: 5051905695587510480, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0025080848
+      value: -0.0025080733
       objectReference: {fileID: 0}
     - target: {fileID: 5591969454026363483, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2139,11 +2143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5591969454026363483, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.014841438
+      value: 0.014841406
       objectReference: {fileID: 0}
     - target: {fileID: 5591969454026363483, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0030492083
+      value: -0.0030492013
       objectReference: {fileID: 0}
     - target: {fileID: 8181439720168122079, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
       propertyPath: isTutorial
