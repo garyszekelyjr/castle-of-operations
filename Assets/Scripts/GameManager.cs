@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
 {
     public State state;
     public Level level;
-
-    string username;
+    public string username;
 
     void Awake()
     {
@@ -24,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateLevel(Level.Start);
+        UpdateLevel(Level.Hallway);
         state = State.NotInBattle;
     }
 

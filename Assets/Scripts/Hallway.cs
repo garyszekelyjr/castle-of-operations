@@ -3,36 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum Tile { Wall, Slime };
+public enum Tile { Wall };
 
-public class AdditionHallway : MonoBehaviour
+public class Hallway : MonoBehaviour
 {
+    public string type;
     public GameObject wall;
     public GameObject slime;
+    public GameObject turtle;
+    public GameObject chest;
+    public GameObject beholder;
 
-    int x = 11;
-    int y = 11;
+    int width = 11;
+    int length = 11;
     int start_x = 1;
     int start_y = 1;
     List<Tile>[,] grid;
 
     void Start()
     {
-        grid = new List<Tile>[x, y];
-        for (int i = 0; i < x; i++)
+        grid = new List<Tile>[width, length];
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < y; j++)
+            for (int j = 0; j < length; j++)
             {
                 if (i == start_x && j == start_y)
                 {
                     grid[i, j] = new List<Tile> { };
-
                 }
                 else
                 {
                     grid[i, j] = new List<Tile> { Tile.Wall };
                 }
-
             }
         }
 
@@ -83,19 +85,44 @@ public class AdditionHallway : MonoBehaviour
             walls.RemoveAll(e => e[0] == wall[0] && e[1] == wall[1]);
         }
 
-        for (int i = 0; i < x; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < y; j++)
+            for (int j = 0; j < length; j++)
             {
                 if (grid[i, j].Contains(Tile.Wall))
                 {
                     GameObject.Instantiate(wall, new Vector3((i - 5) * 4, 2, (j - 5) * 4), Quaternion.identity).transform.SetParent(this.transform);
                 }
-                else
+                else if (i != start_x && j != start_y)
                 {
-                    if (Random.Range(0f, 1f) < 0.1f) {
-                        GameObject.Instantiate(slime, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                    switch (type)
+                    {
+                        case "addition":
+                            if (Random.Range(0f, 1f) < 0.1f)
+                            {
+                                GameObject.Instantiate(slime, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                            }
+                            break;
+                        case "subtraction":
+                            if (Random.Range(0f, 1f) < 0.1f)
+                            {
+                                GameObject.Instantiate(turtle, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                            }
+                            break;
+                        case "multiplication":
+                            if (Random.Range(0f, 1f) < 0.1f)
+                            {
+                                GameObject.Instantiate(chest, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                            }
+                            break;
+                        case "division":
+                            if (Random.Range(0f, 1f) < 0.1f)
+                            {
+                                GameObject.Instantiate(beholder, new Vector3((i - 5) * 4, 0, (j - 5) * 4), Quaternion.identity);
+                            }
+                            break;
                     }
+
                 }
             }
         }

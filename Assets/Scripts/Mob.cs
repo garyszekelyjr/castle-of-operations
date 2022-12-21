@@ -47,8 +47,6 @@ public class Mob : MonoBehaviour
             Vector3 direction = (playerCentroid - mobCentroid).normalized;
 
             // Check if player is visible
-            //RaycastHit hit;
-            //if (Physics.Raycast(mobCentroid, direction, out hit, awareDistance) && (hit.collider.gameObject == player))
 
             if(Vector3.Distance(playerCentroid, mobCentroid) < awareDistance)
             {
