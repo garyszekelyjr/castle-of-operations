@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("isWalking", false);
                 animator.SetBool("inBattle", true);
 
-                Vector3 mob_centroid = mob.transform.GetChild(0).GetComponent<CharacterController>().bounds.center;
+                Vector3 mob_centroid = mob.GetComponent<CharacterController>().bounds.center;
                 Vector3 player_centroid = controller.bounds.center;
                 Vector3 _direction = (mob_centroid - player_centroid).normalized;
                 transform.rotation = Quaternion.Euler(0, Mathf.SmoothDampAngle(transform.eulerAngles.y, Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg, ref turnSmoothVel, turnSmoothTime), 0);
