@@ -130,9 +130,9 @@ public class Player : MonoBehaviour
             case "Turtle":
                 return " - ";
             case "Chest":
-                return " * ";
-            case "Beholder":
                 return " / ";
+            case "Beholder":
+                return " * ";
             default:
                 return " ";
         }
