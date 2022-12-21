@@ -13,6 +13,7 @@ public class Hallway : MonoBehaviour
     public GameObject turtle;
     public GameObject chest;
     public GameObject beholder;
+    public GameObject exit;
 
     int width = 11;
     int length = 11;
@@ -85,13 +86,23 @@ public class Hallway : MonoBehaviour
             walls.RemoveAll(e => e[0] == wall[0] && e[1] == wall[1]);
         }
 
+        for (int i = width - 2; i >= 0; i--)
+        {
+            if (!grid[i, length - 2].Contains(Tile.Wall))
+            {
+                grid[i, length - 1] = new List<Tile> { };
+                GameObject.Instantiate(exit, new Vector3((i - 5) * 4, 2, ((length - 1) - 5) * 4), Quaternion.identity).transform.SetParent(transform);
+                break;
+            }
+        }
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < length; j++)
             {
                 if (grid[i, j].Contains(Tile.Wall))
                 {
-                    GameObject.Instantiate(wall, new Vector3((i - 5) * 4, 2, (j - 5) * 4), Quaternion.identity).transform.SetParent(this.transform);
+                    GameObject.Instantiate(wall, new Vector3((i - 5) * 4, 2, (j - 5) * 4), Quaternion.identity).transform.SetParent(transform);
                 }
                 else if (i != start_x && j != start_y)
                 {
