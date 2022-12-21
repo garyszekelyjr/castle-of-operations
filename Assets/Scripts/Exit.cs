@@ -47,14 +47,26 @@ public class Exit : MonoBehaviour
                 case "Addition Hallway":
                     SceneManager.LoadScene("Addition Arena");
                     break;
+                case "Addition Arena":
+                    SceneManager.LoadScene("Subtraction Hallway");
+                    break;
                 case "Subtraction Hallway":
                     SceneManager.LoadScene("Subtraction Arena");
                     break;
-                case "Multiplcation Hallway":
-                    SceneManager.LoadScene("Multiplcation Arena");
+                case "Subtraction Arena":
+                    SceneManager.LoadScene("Multiplication Hallway");
+                    break;
+                case "Multiplication Hallway":
+                    SceneManager.LoadScene("Multiplication Arena");
+                    break;
+                case "Multiplication Arena":
+                    SceneManager.LoadScene("Division Hallway");
                     break;
                 case "Division Hallway":
                     SceneManager.LoadScene("Division Arena");
+                    break;
+                case "Division Arena":
+                    SceneManager.LoadScene("Start");
                     break;
             }
 
