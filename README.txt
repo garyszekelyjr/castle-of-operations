@@ -42,10 +42,10 @@
         - Other 
             - Music
             - Combat
-            - Enemy Animation Controllers, Movement, & Path Finding
+            - Enemy Animation Controllers, Movement, & Path Finding, Character Controllers
             - Player Camera, Animation Controllers, & Movement Controller
             - Random Aestetics in scenes (lighting, fonts, objects, materials)
-            - Boss Animation Controllers
+            - Boss Animation Controllers, Character Controllers
 
 
     ### Gary Szekely
