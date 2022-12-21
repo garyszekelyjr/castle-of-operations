@@ -46,6 +46,7 @@
             - Player Camera, Animation Controllers, & Movement Controller
             - Random Aestetics in scenes (lighting, fonts, objects, materials)
             - Boss Animation Controllers, Character Controllers
+            - Respawns, Popups
 
 
     ### Gary Szekely
