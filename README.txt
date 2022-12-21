@@ -42,10 +42,10 @@
         - Other 
             - Music
             - Combat
-            - Enemy Animators, Movement, & Path Finding
-                - Chases player once in range and visible
-            - Player Camera, Animator, & Movement Controller
+            - Enemy Animation Controllers, Movement, & Path Finding
+            - Player Camera, Animation Controllers, & Movement Controller
             - Random Aestetics in scenes (lighting, fonts, objects, materials)
+            - Boss Animation Controllers
 
 
     ### Gary Szekely
