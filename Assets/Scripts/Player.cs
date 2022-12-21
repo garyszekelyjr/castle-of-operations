@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     Transform main_camera;
     GameManager gameManager;
 
+    Vector3 respawnPoint;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
         gameManager.UpdateState(State.NotInBattle);
+        respawnPoint = transform.position;
     }
 
     void Update()
@@ -108,6 +111,12 @@ public class Player : MonoBehaviour
     public void Die()
     {
         StartCoroutine(ShowMessage("Try Again!", 2.0f));
+        
+        controller.enabled = false;
+        transform.position = respawnPoint;
+        controller.enabled = true;
+
+        gameManager.UpdateState(State.NotInBattle);
         hp = 100;
     }
 
